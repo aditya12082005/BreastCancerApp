@@ -39,6 +39,17 @@ if st.button("Predict"):
     worst_concavity, area_error, worst_radius, worst_area,
     mean_concavity, worst_concave_points]
 
+
+    input_data = mean_vals.copy()
+    for idx, val in zip(important_indices, user_inputs):
+        input_data[idx] = val
+
+    input_scaled = scaler.transform([input_data])
+    prediction = model.predict(input_scaled)
+
+    st.write("🧾 Raw model output:", prediction[0])
+
+
     if prediction[0] == 1:
         st.error("⚠️ Malignant Tumor Detected")
     else:
